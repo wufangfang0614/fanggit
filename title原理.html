@@ -3,6 +3,11 @@
 <head>
 	<title>title属性提示</title>
 	<script type="text/javascript" src="jq/jquery-3.1.1.js"></script>
+	<style type="text/css">
+	#tooltip{
+		position: absolute;
+	}
+	</style>
 </head>
 <body>
 <a href="#" class="tooltip" title="我是超级链接提示1">提示1</a>
@@ -11,15 +16,21 @@
 <a href="#" title="我是超级链接自带提示1">自带提示2</a>
 <script type="text/javascript">
 	$(function(){
+		var x = 10;
+		var y = 20;
 		$('a.tooltip').mouseover(function(e){
-			var tooltip="<div id='tooltip'>"+this.title+"</div>";
+			this.myTitle = this.title;
+			this.title = "";
+			var tooltip="<div id='tooltip'>"+this.myTitle+"</div>";
 			$("body").append(tooltip);
 			$('#tooltip')
 				.css({
-					"top":e.pageY+"px",
-					"left":e.pageX+"px"
+					"top":(e.pageY+y)+"px",
+					"left":(e.pageX+x)+"px"
 			}).show(300);
 		}).mouseout(function(){
+			//this.还可以随便起名字。
+			this.title=this.myTitle;
 			$('#tooltip').remove();
 		})
 	})
