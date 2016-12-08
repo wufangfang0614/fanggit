@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>图片放大提示</title>
+	<script type="text/javascript" src="jq/jquery-3.1.1.js"></script>
+	<style type="text/css">
+	#tooltip{
+		position: absolute;
+	}
+	ul { list-style: none; }
+	ul li{float: left;margin: 20px;}
+	</style>
+</head>
+<body>
+<ul>
+	<li><a href="img/clock-big.jpg" class="tooltip" title="clock"><img src="img/clock-normal.jpg" alt="clock" /></a></li>
+	<li><a href="img/clock-big.jpg" class="tooltip" title="clock"><img src="img/clock-normal.jpg" alt="clock" /></a></li>
+	<li><a href="img/iphone7plus-big.jpg" class="tooltip" title="iphone7plus"><img src="img/iphone7plus-normal.jpg" alt="iphone7plus" /></a></li>
+	<li><a href="img/iphone7plus-big.jpg" class="tooltip" title="iphone7plus"><img src="img/iphone7plus-normal.jpg" alt="iphone7plus" /></a></li>
+</ul>
+<script type="text/javascript">
+	$(function(){
+		var x = 10;
+		var y = 20;
+		$('a.tooltip').mouseover(function(e){
+			this.myTitle = this.title;
+			this.title = "";
+			var imgTitle = this.myTitle?"<br/>"+this.myTitle:"";
+			var tooltip="<div id='tooltip'><img src='"+this.href+"' alt='产品预览图'/>"+imgTitle+"</div>";
+			$("body").append(tooltip);
+			//e.pageX是鼠标的位置
+			$('#tooltip')
+				.css({
+					"top":(e.pageY+y)+"px",
+					"left":(e.pageX+x)+"px"
+			}).show(300);
+		}).mouseout(function(){
+			//this.还可以随便起名字。
+			this.title=this.myTitle;
+			$('#tooltip').remove();
+		}).mousemove(function(e){
+			$('#tooltip')
+				.css({
+					"top":(e.pageY+y)+"px",
+					"left":(e.pageX+x)+"px"
+			});
+		})
+	})
+</script>
+</body>
+</html>

@@ -33,6 +33,12 @@
 			//this.还可以随便起名字。
 			this.title=this.myTitle;
 			$('#tooltip').remove();
+		}).mousemove(function(e){
+			$('#tooltip')
+				.css({
+					"top":(e.pageY+y)+"px",
+					"left":(e.pageX+x)+"px"
+			});
 		})
 	})
 </script>
