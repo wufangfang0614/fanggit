@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>列表展开关闭</title>
+	<script type="text/javascript" src="jq/jquery-3.1.1.js"></script>
+	<style type="text/css">
+		.clearfix:after{content:" ";display:block;height:0;clear:both;visibility:hidden}
+		.clearfix{*+height:1%;zoom:1;} 
+		.table-btn {
+			display: inline-block;
+			position: relative;
+		}
+		.table-btn .btn-edit{
+			width: 30px;
+			height: 30px;
+			display: inline-block;
+			color: #fff;
+			background-color: inherit;
+			background: url(../../img/newui01/table/btn-edit.png) no-repeat 7px;
+			vertical-align: sub;  
+		}
+		.table-btn .btn-edit + span{
+			color: #4a5fe2;
+		}
+		.table-btn span{
+			width: 30px;
+			font-size: 8px;
+			position: absolute;
+			top: 30px;
+			text-align: center;
+			display: none;
+		}
+		.table-btn:hover > span{
+			display: block;
+		}
+		.termgrouplist{
+			margin: 20px;
+			min-width: 1024px;
+		}
+		.termgroup-box{
+			margin-bottom: 15px;
+			display: block;
+		}
+		.parentgroup{
+			height: 56px;
+			font-size: 16px;
+			background: #fff;
+			line-height: 56px;
+			color: #030930;
+		}
+		.parentgroup .name{
+			float: left;
+			width: 14%;
+			background: #CFDEFC;
+			text-align: center;
+		}
+		.parentgroup .name .span-line{
+			float: left;
+			width: 4px;
+			height: 56px;
+			background: #3E5DE6;
+		}
+		.parentgroup .account{
+			float: left;
+			width: 15%;
+			text-align: center;
+		}
+		.parentgroup .createtime{
+			float: left;
+			width: 15%;
+			text-align: center;
+		}
+		.parentgroup .btn-box{
+			text-align: right;
+			margin-right: 25px;
+		}
+		.parentgroup .btn-box .btn-edit{
+			vertical-align: -7px;
+			background: url(img/edit.png) no-repeat center;
+		}
+		.parentgroup .btn-box .table-btn span {
+			top: 20px;
+		}
+		.childgroup-box{
+			border-bottom: 2px dashed #ABB8BC;
+			padding-left: 10px;
+			display: none;
+		}
+		.childgroup{
+			float: left;
+			width: 18%;
+			background: #fff;
+			box-shadow: 0px 2px 3px 0px #CFE1F7;
+			height: 93px;
+			margin: 10px;
+			text-align: center;
+			padding-top: 18px;
+		}
+		.childgroup .name {
+			color: #030930;
+			font-size: 16px;
+			line-height: 30px;
+		}
+		.childgroup .account{
+			color: #90a1a6;
+		}
+		.childgroup .account .admin{
+			display: inline-block;
+			width: 13px;
+			height: 16px;
+			background: url(img/admin.png) no-repeat;
+			vertical-align: -2px;
+		}
+		.parentgroup .unfolding{
+			margin-left: 20px; 
+			cursor: pointer;
+		}
+		.parentgroup .btn-unfolding{
+			width: 30px;
+			height: 30px;
+			display: inline-block;
+			color: #fff;
+			background-color: inherit;
+			background: url(img/Unfolding.png) no-repeat;
+			vertical-align: -6px;
+		}
+		.parentgroup .btn-unfolding+span{
+			width: 60px;
+			margin-left: -16px;
+			color: #4a5fe2;
+		}
+		.parentgroup .folding{
+			margin-left: 20px; 
+			display: none;
+			cursor: pointer;
+		}
+		.parentgroup .btn-folding{
+			width: 30px;
+			height: 30px;
+			display: inline-block;
+			color: #fff;
+			background-color: inherit;
+			background: url(img/folding.png) no-repeat center;
+			vertical-align: -6px;
+		}
+		.parentgroup .btn-folding+span{
+			color: #D0011B;
+		}
+	</style>
+</head>
+<body>
+	<div class="termgrouplist" style="margin-bottom: 50px; ">
+		<div class="termgroup-box">
+			<div class="parentgroup clearfix">
+				<div class="name">
+					<span class="span-line"></span>
+					海淀区
+				</div>
+				<div class="account">1399999999</div>
+				<div class="createtime">2016-12-09 13：33</div>
+				<div class="btn-box">
+					<div class="table-btn">
+						<a href="agency.php?controller=box&amp;action=edit&amp;box_id=3" class="btn-edit"></a>
+						<span>编辑</span>
+					</div>
+					<div class="table-btn unfolding">
+						<a href="#" class="btn-unfolding"></a>
+						<span>区域内群组</span>
+					</div>
+					<div class="table-btn folding">
+						<a href="#" class="btn-folding"></a>
+						<span>收起</span>
+					</div>
+				</div>
+			</div>
+			<div class="childgroup-box clearfix">
+				<div class="childgroup">
+					<ul>
+						<li>
+							<div class="name">知春里群组</div>
+							<div class="account">
+								<span class="admin"></span>
+								管理员 132000000000 
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="childgroup">
+					<ul>
+						<li>
+							<div class="name">知春里群组</div>
+							<div class="account">
+								<span class="admin"></span>
+								管理员 132000000000 
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="childgroup">
+					<ul>
+						<li>
+							<div class="name">知春里群组</div>
+							<div class="account">
+								<span class="admin"></span>
+								管理员 132000000000 
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="childgroup">
+					<ul>
+						<li>
+							<div class="name">知春里群组</div>
+							<div class="account">
+								<span class="admin"></span>
+								管理员 132000000000 
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="childgroup">
+					<ul>
+						<li>
+							<div class="name">知春里群组</div>
+							<div class="account">
+								<span class="admin"></span>
+								管理员 132000000000 
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="childgroup">
+					<ul>
+						<li>
+							<div class="name">知春里群组</div>
+							<div class="account">
+								<span class="admin"></span>
+								管理员 132000000000 
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="childgroup">
+					<ul>
+						<li>
+							<div class="name">知春里群组</div>
+							<div class="account">
+								<span class="admin"></span>
+								管理员 132000000000 
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="termgroup-box">
+			<div class="parentgroup clearfix">
+				<div class="name">
+					<span class="span-line"></span>
+					海淀区
+				</div>
+				<div class="account">1399999999</div>
+				<div class="createtime">2016-12-09 13：33</div>
+				<div class="btn-box">
+					<div class="table-btn">
+						<a href="agency.php?controller=box&amp;action=edit&amp;box_id=3" class="btn-edit"></a>
+						<span>编辑</span>
+					</div>
+					<div class="table-btn unfolding">
+						<a href="#" class="btn-unfolding"></a>
+						<span>区域内群组</span>
+					</div>
+					<div class="table-btn folding">
+						<a href="#" class="btn-folding"></a>
+						<span>收起</span>
+					</div>
+				</div>
+			</div>
+			<div class="childgroup-box clearfix">
+				<div class="childgroup">
+					<ul>
+						<li>
+							<div class="name">知春里群组</div>
+							<div class="account">
+								<span class="admin"></span>
+								管理员 132000000000 
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="childgroup">
+					<ul>
+						<li>
+							<div class="name">知春里群组</div>
+							<div class="account">
+								<span class="admin"></span>
+								管理员 132000000000 
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="childgroup">
+					<ul>
+						<li>
+							<div class="name">知春里群组</div>
+							<div class="account">
+								<span class="admin"></span>
+								管理员 132000000000 
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="childgroup">
+					<ul>
+						<li>
+							<div class="name">知春里群组</div>
+							<div class="account">
+								<span class="admin"></span>
+								管理员 132000000000 
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="childgroup">
+					<ul>
+						<li>
+							<div class="name">知春里群组</div>
+							<div class="account">
+								<span class="admin"></span>
+								管理员 132000000000 
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="childgroup">
+					<ul>
+						<li>
+							<div class="name">知春里群组</div>
+							<div class="account">
+								<span class="admin"></span>
+								管理员 132000000000 
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="childgroup">
+					<ul>
+						<li>
+							<div class="name">知春里群组</div>
+							<div class="account">
+								<span class="admin"></span>
+								管理员 132000000000 
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		$(function(){
+			$(document).on('click','.unfolding',function(){
+				var childgroup = $(this).parents('.parentgroup').siblings('.childgroup-box');
+				if(!childgroup.is(":animated")){
+					childgroup.show(600);
+					$(this).siblings('.folding').show().css('display','inline-block').end().hide(); 
+				}
+			})
+			$(document).on('click','.folding',function(){
+				var childgroup = $(this).parents('.parentgroup').siblings('.childgroup-box');  
+				if(!childgroup.is(":animated")){
+					childgroup.hide(600);
+					$(this).siblings('.unfolding').show().css('display','inline-block').end().hide();
+				}  
+			})
+		})
+	</script>
+</body>
+</html>
