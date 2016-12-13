@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title></title>
+	<style type="text/css">
+	.error{
+		color: red;
+	}
+	</style>
+</head>
+<body>
+	<form id="demoform">
+		<fieldset>
+			<legend>用户登录</legend>
+			<p>
+				<label>用户名</label>
+				<input id="username" name="username" type="text"></input>
+			</p>
+			<p>
+				<label>密码</label>
+				<input id="password" name="password" type="password"></input>
+			</p>
+			<input type="submit" value="登录"></input>
+		</fieldset>
+	</form>
+	<script type="text/javascript" src="jq/jquery-3.1.1.js"></script>
+	<script type="text/javascript" src="jq/jquery.validate.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#demoform').validate({
+				rules:{
+					//name值
+					username:{
+						required:true,
+						minlength:2,
+						maxlength:16
+					},
+					password:{
+						required:true,
+						minlength:2,
+						maxlength:16
+					}
+				},
+				messages:{
+					username:{
+						required:"必须填写用户名",
+						minlength:"用户名最少为两位",
+						maxlength:"用户名最多为十位"
+					},
+					password:{
+						required:"必须填写密码",
+						minlength:"密码最少为两位",
+						maxlength:"密码最多为十六位"
+					}
+				},
+
+			})
+		})
+	</script>
+</body>
+</html>
