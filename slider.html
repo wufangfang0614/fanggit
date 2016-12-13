@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>slider</title>
+  <script type="text/javascript" src="jq/jquery-3.1.1.js"></script>
+  <style type="text/css">
+    .slider-box{
+      width: 440px;
+      height: 10px;
+    }
+    .slider-body{
+      width: 100%;
+      height: 100%;
+      border: 1px solid #90A1A6;
+      border-radius: 26px;
+    }
+    .slider-son{
+      position: relative;
+      width: 100px;
+      height: 100%;
+      background: #4A5FE2;
+      border-radius: 26px;
+    }
+    .slider-btn{
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background: #CFE1F7;
+      box-shadow: 0px 2px 4px 0px #212F82;
+      cursor: pointer;
+      z-index: 99999;
+      border-radius: 100%; 
+      left: 92px;
+      top: -4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="slider-box">
+    <div class="slider-body">
+      <div class="slider-son">
+        <span class="slider-btn"></span>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+    $(function(){
+      $(document).on('mousedown','.slider-btn',function(){
+        $(document.body).on('mousemove','.slider-btn',function(e){
+          console.log(e.pageX);
+          $(this).css('left',e.pageX-8+'px');
+          $(this).parent('.slider-son').css('width',e.pageX+'px');
+        })
+      });
+      $(document).on('mouseup','.slider-btn',function(){
+        $(document.body).unbind('mousemove','.slider-btn',function(e){
+          console.log(e.pageX);
+          $(this).css('left',e.pageX-8+'px');
+          $(this).parent('.slider-son').css('width',e.pageX+'px');
+        });
+      })
+    })
+  </script>
+</body>
+</html>
