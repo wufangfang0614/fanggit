@@ -6,18 +6,20 @@
   <title>slider</title>
   <script type="text/javascript" src="jq/jquery-3.1.1.js"></script>
   <style type="text/css">
+    *{margin: 0;padding: 0;}
     .slider-box{
       width: 440px;
       height: 10px;
+      margin: 50px 0 0 50px;
     }
     .slider-body{
       width: 100%;
       height: 100%;
       border: 1px solid #90A1A6;
       border-radius: 26px;
+      position: relative;
     }
     .slider-son{
-      position: relative;
       width: 100px;
       height: 100%;
       background: #4A5FE2;
@@ -35,32 +37,100 @@
       left: 92px;
       top: -4px;
     }
+    .slider-number{
+      position: relative;
+      width: 100%;
+      top: 5px;
+      font-size: 14px; 
+      -webkit-user-select:none;
+      -moz-user-select:none;
+      -ms-user-select:none;
+      user-select:none;
+    }
+    .slider-number .max{
+      position: absolute;
+      right: -12px;
+      color: #90A1A6; 
+    }
+    .slider-number .min{
+      position: absolute;
+      left: -7px;
+      color: #90A1A6;
+    }
+    .slider-btn .cur-num{
+      font-size: 14px;
+      color: #323658;
+      position: absolute;
+      top: 19px;
+      -webkit-user-select:none;
+      -moz-user-select:none;
+      -ms-user-select:none;
+      user-select:none;
+    }
   </style>
 </head>
 <body>
-  <div class="slider-box">
+  <div id="slider1" class="slider-box">
     <div class="slider-body">
       <div class="slider-son">
-        <span class="slider-btn"></span>
+      </div>
+      <div class="slider-btn">
+        <span class="cur-num">100</span>
+      </div>
+      <div class="slider-number">
+        <span class="min">0</span>        
+        <span class="max">100</span>
       </div>
     </div>
   </div>
   <script type="text/javascript">
-    $(function(){
-      $(document).on('mousedown','.slider-btn',function(){
-        $(document.body).on('mousemove','.slider-btn',function(e){
-          console.log(e.pageX);
-          $(this).css('left',e.pageX-8+'px');
-          $(this).parent('.slider-son').css('width',e.pageX+'px');
-        })
-      });
-      $(document).on('mouseup','.slider-btn',function(){
-        $(document.body).unbind('mousemove','.slider-btn',function(e){
-          console.log(e.pageX);
-          $(this).css('left',e.pageX-8+'px');
-          $(this).parent('.slider-son').css('width',e.pageX+'px');
-        });
+    function setInitialValue(value,id){
+      $(id+' .slider-btn .cur-num').text(value);
+      var btn = $(id+' .slider-btn');
+      var width = btn.parents('.slider-box').width();
+      var min = btn.siblings('.slider-number').children('.min').text();
+      var max = btn.siblings('.slider-number').children('.max').text();
+      var range =  max-min;
+      var bodyWidth = Math.round(width*value/range);
+      btn.css('left',bodyWidth-8+'px');
+      btn.siblings('.slider-son').css('width',bodyWidth+'px');
+    }
+    function slider(id){
+      //鼠标在圆钮按下，获取slider长度，最大最小值并求出数字范围
+      $(document).on('mousedown',id+' .slider-btn',function(){
+       var btn = $(this);
+       var width = btn.parents('.slider-box').width();
+       var min = btn.siblings('.slider-number').children('.min').text();
+       var max = btn.siblings('.slider-number').children('.max').text();
+       var range =  max-min;
+       //此时给body绑定鼠标移动事件
+       $(document.body).mousemove(function(e){   
+        //获取slider的距离当前视口的相对距离     
+        var bodyOffset=$('.slider-body').offset();
+        //获得slider-son的实际长度
+        var bodyWidth=e.clientX-bodyOffset.left;
+        //判断slider-son的实际长度的范围
+        if (width>=(bodyWidth)&&(bodyWidth)>=0){
+          //按比例求出数值
+          var realnumber = Math.round(range*bodyWidth/width);
+          //给小圆钮赋值，需要减去它的半径
+          btn.css('left',e.clientX-bodyOffset.left-8+'px');
+          btn.siblings('.slider-son').css('width',e.clientX-bodyOffset.left+'px');
+          btn.children('.cur-num').text(realnumber);
+        }        
       })
+     });
+      //具体拉动的时候，按钮相对鼠标有滞后性，是不同步的，拖动过程中鼠标不会一直在btn上面。mouseup解除mousemove事件，应该是鼠标不管在什么位置抬起来都会解除绑定，所以不能绑定在按钮上，绑定在文档上。然后mousemove，鼠标和按钮不会同步，如果鼠标移动得快出去了就触发不了mousemove事件了
+
+      $(document).mouseup(function(){
+        $(document.body).unbind('mousemove');
+      });
+    }
+    $(function(){
+      var id = '#slider1';
+      setInitialValue(30,id);
+      slider(id);
+     
     })
   </script>
 </body>
