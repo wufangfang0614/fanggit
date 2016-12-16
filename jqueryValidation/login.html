@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 	<title></title>
 	<style type="text/css">
-	.error{
-		color: red;
-	}
+		.error{
+			color: red;
+		}
 	</style>
 </head>
 <body>
@@ -27,19 +26,19 @@
 	<script type="text/javascript" src="jq/jquery-3.1.1.js"></script>
 	<script type="text/javascript" src="jq/jquery.validate.js"></script>
 	<script type="text/javascript">
+		var b=10;
 		$(document).ready(function(){
+			var a=10;
 			$('#demoform').validate({
-				rules:{
-					//name值
-					username:{
-						required:true,
-						minlength:2,
-						maxlength:16
+				rules:{//验证规则					
+					username:{//name值
+						required:true,//必填
+						minlength:2, //最小长度2位
+						maxlength:16 //最大长度16位
 					},
 					password:{
 						required:true,
-						minlength:2,
-						maxlength:16
+						rangelength:2-16//相当于最小长度2位最大长度16位
 					}
 				},
 				messages:{
