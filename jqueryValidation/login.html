@@ -25,137 +25,141 @@
 		<fieldset>
 			<legend>用户登录</legend>
 			<div class="input-group">
-				<label class="control-label">用户名</label>
+				<label class="control-label" for="username">用户名</label>
 				<input id="username" name="username" type="text"></input>
 			</div>
 			<div class="input-group">
-				<label class="control-label">密码</label>
+				<label class="control-label" for="password">密码</label>
 				<input id="password" name="password" type="password"></input>
 			</div>
 			<div class="input-group">
-				<label class="control-label">确认密码</label>
-				<input id="confirm-password" name="comfirm-password" type="password"></input>
+				<label class="control-label" for="confirm-password">确认密码</label>
+				<input id="confirm-password" name="confirm-password" type="password"></input>
 			</div>
 			<div class="input-group">
-				<label class="control-label">邮箱</label>
+				<label class="control-label" for="number">0-100</label>
+				<input id="number" name="number" type="text"></input>
+			</div>
+			<div class="input-group">
+				<label class="control-label" for="email">邮箱</label>
 				<input id="email" name="email" type="text"></input>
 			</div>
 			<div class="input-group">
-				<label class="control-label">手机号</label>
+				<label class="control-label" for="telephone">手机号</label>
 				<input id="telephone" name="telephone" type="text"></input>
 			</div>
 			<div class="input-group">
-				<label class="control-label">url</label>
+				<label class="control-label" for="url">url</label>
 				<input id="url" name="url" type="number"></input>
-			</div>
+			</div>						
 			<div class="input-group">
-				<label class="control-label">出生日期</label>
+				<label class="control-label" for="date">出生日期</label>
 				<input id="date" name="date" type="text"></input>
 			</div>
+			<button id="check">检查</button>
 			<input type="submit" value="登录"></input>
 		</fieldset>
 	</form>
 	<script type="text/javascript" src="jq/jquery-3.1.1.js"></script>
 	<script type="text/javascript" src="jq/jquery.validate.js"></script>
 	<script type="text/javascript">
-		/*$(document).ready(function(){
-			$('#demoform').validate({
-				rules:{
-					username:{
+		var validate;
+		$(document).ready(function(){
+			 validate=$('#demoform').validate({
+				debug:true,
+				//验证规则	
+				rules:{				
+					username:{//name值
 						required:true,
-						minlength:6,
-						maxlength:16
+						minlength:2, 
+						maxlength:16,
+						//get请求
+						//remote:"remote.json" 
+						//post请求
+						/*remote:{
+							url:'remote.jiso',
+							type:'post',
+							data:{
+								loginTime:function(){
+									return +new Date;//取一个gettime，返回一个long型的毫秒数的时间，+把一个字符转成一个数字									
+								}
+							}
+
+						}*/
 					},
 					password:{
 						required:true,
-						rangelength:2-16
+						rangelength:[8,16]
 					},
+					//"带-要用引号括起来"
 					"confirm-password":{
-						equalTo:"#password"
+						equalTo:"#password"//选择器，此处是id选择器,判断与该选择器元素的值是否相同
+					},
+					number:{
+						max:100,
+						min:0,
+						//range:[0,100] 也是0-100可以有小数
+						//number:true,//数字
+						digits:true//整数
 					},
 					email:{
 						required:true,
 						email:true
+					},					
+					url:{
+						url:true,
 					},
 					telephone:{
 						required:true,
 						number:true,
-						rangelength:11-1
-					},
-					url:{
-						url:true,
+						rangelength:[11,11]
 					},
 					date:{
-						dateISO:true
+						date:true,//用new date()来转换，转换成功就是对的
+						dateISO:true //2012-11-12 或是/
 					}
+					
+
 				},
+				//错误提示
 				messages:{
 					username:{
 						required:"必须填写用户名",
-						minlength:"用户名最少6位",
-						maxlength:"用户名最多16位"
+						minlength:"用户名最少为两位",
+						maxlength:"用户名最多为十位"
 					},
 					password:{
 						required:"必须填写密码",
-						rangelength:"密码长度是8-20位"
+						rangelength:"密码最少为八位,最多为十六位"
 					},
 					"confirm-password":{
 						equalTo:"两次输入密码不一致"
 					},
+					number:{
+						max:"最大值100",
+						min:"最小值0",
+						//number:"请输入数字",
+						digits:"请输入整数"
+					},
 					email:{
 						required:"必须填写邮箱",
 						email:"请正确填写邮箱地址"
+					},					
+					url:{
+						url:"请填写以http开头的正确url地址",
 					},
 					telephone:{
 						required:"必须填写手机号",
 						number:"请输入数字",
 						rangelength:"手机号为11位数字"
 					},
-					url:{
-						url:"请填写以http开头的正确url地址",
-					},
 					date:{
-						dateISO:true
+						dateISO:"2012-11-12 或是/分隔" 
 					}
 				}
 			})
-		})
-*/	</script>
-	<script type="text/javascript">
-		var b=10;
-		$(document).ready(function(){
-			var a=10;
-			var validate=$('#demoform').validate({
-				//debug:true,
-				rules:{//验证规则					
-					username:{//name值
-						required:true,//必填
-						minlength:2, //最小长度2位
-						maxlength:16,//最大长度16位
-						//remote:"remote.json"
-					},
-					password:{
-						required:true,
-						//rangelength:2-16//相当于最小长度2位最大长度16位
-						minlength:2, //最小长度2位
-						maxlength:16 //最大长度16位
-					}
-
-				},
-				messages:{
-					username:{
-						required:"必须填写用户名",
-						minlength:"用户名最少为两位",
-						maxlength:"用户名最多为十位"
-					},
-					password:{
-						required:"必须填写密码",
-						minlength:"用户名最少为两位",
-						maxlength:"用户名最多为十位"
-						//rangelength:"密码最少为两位,最多为十六位"
-					}
-				}
-
+			$('#check').click(function(){
+				alert($('#demoform').valid()?"填写正确":"填写不正确");
 			})
 		})
 	</script>
