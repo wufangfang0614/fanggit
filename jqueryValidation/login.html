@@ -22,6 +22,7 @@
 </head>
 <body>
 	<form id="demoform">
+		<p id="info"></p>
 		<fieldset>
 			<legend>用户登录</legend>
 			<div class="input-group">
@@ -63,15 +64,30 @@
 	<script type="text/javascript" src="jq/jquery-3.1.1.js"></script>
 	<script type="text/javascript" src="jq/jquery.validate.js"></script>
 	<script type="text/javascript">
-		var validate;
+		var validator;
+		/*$(document).ready(function(){
+			$.validator.setDefaults({
+				debug:true
+			})
+		})*/
 		$(document).ready(function(){
-			 validate=$('#demoform').validate({
-				debug:true,
+			validator=$('#demoform').validate({
 				//验证规则	
 				rules:{				
 					username:{//name值
-						required:true,
-						minlength:2, 
+						required:{
+							depends:function(element){
+								return $('#password').is(":filled");
+								//密码填写了才会触发required规则
+							}
+						},
+						minlength:{
+							param:2,
+							depends:function(element){
+								return $('#email').is(":filled");
+								//密码填写了才会触发required规则
+							}
+						}, 
 						maxlength:16,
 						//get请求
 						//remote:"remote.json" 
@@ -156,11 +172,57 @@
 					date:{
 						dateISO:"2012-11-12 或是/分隔" 
 					}
+				},
+				ignore:"#username", //省略的时候有一个默认值默认值是":hidden"对隐藏的元素不进行校验
+				submitHandler:function(form){
+					console.log($(form).serialize());
+				},
+				invalidHandler:function(event,validator){
+					console.log("错误数:"+validator.numberOfInvalids())
+				},
+				/*groups:{
+					login:"username password confirm-password"
+				},*/
+				errorPlacement:function(error,element){
+					error.insertBefore("#info");
+					/*if(element.attr('name')=='username'||element.attr('name')=='password'||element.attr('name')=='confirm-password'){
+						error.insertBefore("#info");
+					}else{
+						error.insertAfter(element);
+					}*/
+					
+				},
+				//onsubmit:false,
+				/*errorClass:"wrong",
+				validClass:"rigtht",
+				errrorContainer:"#info",
+				erroeLabelContainer:"#info",
+				errorElement:"li",
+				wrapper:'ul',*/
+				/*showErrors:function(errorMap,errorList){
+					console.log(errorMap);
+					console.log(errorList);
+					//this.defualtShowErrors();不写的话就没有默认的错误提示
+				}*/
+				/*success:"right",//给错误提示label标签添加一个right类
+				success:function(label){
+					label.addClass("rrrrrr");
+				}*/
+				highlight:function(element,errorClass,validClass){
+					$(element).addClass(errorClass).removeClass(validClass);
+					$(element).fadeOut().fadeIn();
+				},
+				unhighlight:function(element,errorClass,validClass){
+					$(element).addClass(validClass).removeClass(errorClass);
 				}
+				
 			})
-			$('#check').click(function(){
+			$('#demoform').on('invalid-form',function(event,validator){
+					console.log("错误数:"+validator.numberOfInvalids());
+			})
+			/*$('#check').click(function(){
 				alert($('#demoform').valid()?"填写正确":"填写不正确");
-			})
+			})*/
 		})
 	</script>
 </body>
