@@ -57,6 +57,10 @@
 				<label class="control-label" for="date">出生日期</label>
 				<input id="date" name="date" type="text"></input>
 			</div>
+			<div class="input-group">
+				<label class="control-label" for="date">邮政编码</label>
+				<input id="post" name="post" type="text"></input>
+			</div>
 			<button id="check">检查</button>
 			<input type="submit" value="登录"></input>
 		</fieldset>
@@ -133,6 +137,10 @@
 					date:{
 						date:true,//用new date()来转换，转换成功就是对的
 						dateISO:true //2012-11-12 或是/
+					},
+					post:{
+						required:true,
+						postcode:"中国"
 					}
 					
 
@@ -183,15 +191,15 @@
 				/*groups:{
 					login:"username password confirm-password"
 				},*/
-				errorPlacement:function(error,element){
+				/*errorPlacement:function(error,element){
 					error.insertBefore("#info");
-					/*if(element.attr('name')=='username'||element.attr('name')=='password'||element.attr('name')=='confirm-password'){
+					if(element.attr('name')=='username'||element.attr('name')=='password'||element.attr('name')=='confirm-password'){
 						error.insertBefore("#info");
 					}else{
 						error.insertAfter(element);
-					}*/
+					}
 					
-				},
+				},*/
 				//onsubmit:false,
 				/*errorClass:"wrong",
 				validClass:"rigtht",
@@ -220,6 +228,16 @@
 			$('#demoform').on('invalid-form',function(event,validator){
 					console.log("错误数:"+validator.numberOfInvalids());
 			})
+		/*	$.validator.addMethod("postcode",function(value,element,params){
+				var postcode = /^[0-9]{6}/;
+				return this.optional(element)||(postcode.test(value));
+				//第一个意思是传过来的值为空返回true，第二个是判断传过来的值符合不符合创建的验证规则，没值不验证（非必填的时候）
+			},"请填写正确的邮编！");*/
+			$.validator.addMethod("postcode",function(value,element,params){
+				var postcode = /^[0-9]{6}/;
+				console.log(params);
+				return this.optional(element)||(postcode.test(value));
+			},$.validator.format("请填写正确的{0}邮编！"));
 			/*$('#check').click(function(){
 				alert($('#demoform').valid()?"填写正确":"填写不正确");
 			})*/
