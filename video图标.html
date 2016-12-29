@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		*{padding:0;margin: 0;}
+		.vedio-icon{
+			width: 57px;
+			height: 57px;
+			background: rgba(31,31,41,0.50);
+			border: 2px solid #FFFFFF;
+			border-radius: 100%;
+			position: absolute;
+			z-index: 5;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%,-50%);
+			-webkit-transform: translate(-50%,-50%);
+			-ms-transform: translate(-50%,-50%);
+			-moz-transform: translate(-50%,-50%);
+			transition: opacity .15s ease-in-out .2s;
+			-webkit-transition: opacity .15s ease-in-out .2s;
+			-ms-transition: opacity .15s ease-in-out .2s;
+			-moz-transition: opacity .15s ease-in-out .2s;
+			transition: all .6s ease;
+		}
+		.vedio-icon span{
+			position: absolute;
+			left: 21px;
+			top: 15px;
+			display: inline-block;
+			width: 0;
+			height: 0;
+			border-top: 13px solid;
+			border-left: 20px solid;
+			border-bottom: 13px solid;
+			border-color: transparent transparent transparent #fff;
+		}
+		.minishow-box{
+			display: inline-block;
+			width: 23%;
+			margin-right:2.5%;  
+			overflow: hidden;
+			margin-bottom: 10px; 
+			position: relative;
+		}
+		.minishow-box:last-child{
+			margin-right:0; 
+		}
+		.minishow-box .showimg>img{
+			width: 100%;
+			height: 163px;
+			border-radius:2%;
+			background: red;
+		}
+		.minishow-box .title{
+			height: 25px;
+			line-height: 25px;
+			font-size: 16px;
+			color: #3F4247;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			margin-top: 10px;
+		}
+		.minishow-box .liveed-time{
+			display: inline-block;
+			width: 50%;
+			font-size: 14px;
+			color: #999FAB;
+		}
+		.minishow-box .hadsee{
+			display: inline-block;
+			width: 50%;
+			font-size: 14px;
+			color: #B5BCCA;
+			text-align: right;
+			padding-right: 9px;
+		}
+		.minishow-box .hadsee span{
+			display: inline-block;
+			width: 25px;
+			height: 16px;
+			background: url(../../../img/newui01/live/httplive/smallsee.png) no-repeat center;
+			margin-right: 10px; 
+			vertical-align: -2px;
+		}
+		.minishow-box .showimg:hover > .vedio-icon{
+			opacity: 1;
+			top: 38%;
+		}
+		.minishow-box .showimg > .vedio-icon{
+			opacity: 0;
+			top: 50%;
+		}
+	</style>
+</head>
+<body>
+	<div class="minishow-box">
+		<div class="showimg">
+			<img src=""/>
+			<div class="vedio-icon">
+				<span></span>
+			</div>
+		</div>
+		<h6 class="title">fasdfasdfjadisfhiadhsgfashglkasgh</h6>
+		<p class="liveed-time">2017-13-15</p>
+		<div class="hadsee"><span></span>12344</div>
+	</div>	
+</body>
+</html>
