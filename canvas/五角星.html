@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+<canvas id="canvas" style="border:1px solid #aaa;display:block;margin:50px auto;">
+	当前浏览器不支持canvas时，请更换浏览器
+</canvas>
+
+<script type="text/javascript">
+	window.onload=function(){
+		var canvas = document.getElementById('canvas');
+		canvas.width = 800;
+		canvas.height = 800;
+		var context = canvas.getContext('2d');
+
+		//context.lineJoin = "miter";
+		//context.miterLimit = 20;
+		//drawStar(context , 30 , 300 , canvas.width/2 ,canvas.height/2 , 30 , 10 , 'pink' ,'yellow');
+		draArc( context , 300 , 300 , 120 , 0 , Math.PI * 2 ,false ,"#b81321");
+		draArc( context , 300 , 300 , 100 , 0 , Math.PI * 2 ,false ,"#ffffff");
+		draArc( context , 300 , 300 , 80 , 0 , Math.PI * 2 ,false ,"#c00d1e");
+		draArc( context , 300 , 300 , 60 , 0 , Math.PI * 2 ,false ,"#0b1c3a");
+		drawStar( context , 20 , 60 , 300 ,300 , 0 , 0 , ' #ffffff' ,'#ffffff');
+	}
+
+	function drawStar( cxt , r , R , x , y , rot , borderWidth , borderStyle , fillStyle){
+		cxt.beginPath();
+		for( var i = 0 ; i < 5 ; i ++){
+			cxt.lineTo(Math.cos((18+72*i - rot)/180*Math.PI) * R + x ,- Math.sin((18+72*i - rot )/180*Math.PI) * R + y);
+			cxt.lineTo(Math.cos((54+72*i - rot)/180*Math.PI) * r + x ,- Math.sin((54+72*i - rot )/180*Math.PI) * r + y);
+		}
+		cxt.closePath();
+
+		cxt.lineWidth = borderWidth;
+		cxt.strokeStyle = borderStyle;
+		cxt.fillStyle = fillStyle;
+
+		cxt.fill();
+		cxt.stroke();
+	}
+	function draArc( cxt , x , y , r , sAng ,eAng , flag , Color){
+		cxt.beginPath();
+		cxt.arc( x , y , r , sAng , eAng , flag);
+		cxt.closePath();
+		cxt.fillStyle = Color;
+
+		cxt.fill();
+		
+	}
+
+</script>
+
+</body>
+</html>
