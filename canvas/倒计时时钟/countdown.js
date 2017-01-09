@@ -11,6 +11,7 @@ var MARGIN_LEFT = 30;
 // endTime.setTime(endTime.getTime() + 3600*1000);
 var curShowTimeSeconds = 0;
 
+//用来存增加的小球
 var balls=[];
 const colors = ["#33B5E5","#0099CC","#AA66CC","#9933CC","#99CC00","#669900","#FFBB33","#FF8800","#FF4444","#CC0000"];
 
@@ -139,6 +140,7 @@ function render(cxt){
 	renderDigit(MARGIN_LEFT + 78*(RADIUS+1),MARGIN_TOP,parseInt(seconds/10),cxt);
 	renderDigit(MARGIN_LEFT + 93*(RADIUS+1),MARGIN_TOP,parseInt(seconds%10),cxt);
 
+	//渲染增加的彩色的小球
 	for( var i = 0; i < balls.length; i++){
 		cxt.fillStyle = balls[i].color;
 		cxt.beginPath();
