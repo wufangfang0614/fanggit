@@ -5,26 +5,57 @@
 	<title></title>
 </head>
 <body>
-<canvas id="canvas" style="display:block;border:1px solid #aaa;margin:50px auto;">
-	如果浏览器不能正常显示，请更换支持canvas的浏览器
-</canvas>
-<script type="text/javascript">
-	window.onload=function(){
-		var canvas = document.getElementById('canvas');
-		var context = canvas.getContext('2d');
-		canvas.width = 1200;
-		canvas.height = 800;
+	<canvas id="canvas" width="800" height="800" style="display:block;border:1px solid #aaa;margin:50px auto;">
+		如果浏览器不能正常显示，请更换支持canvas的浏览器
+	</canvas>
+	<script type="text/javascript">
+		window.onload=function(){
+			var canvas = document.getElementById('canvas');
+			var context = canvas.getContext('2d');
 
-		var linearGrd = context.createLinearGradient( 50,50,300,300);
-		linearGrd.addColorStop(0.0,"#fff");
-		linearGrd.addColorStop(0.5,"#ff0");
-		linearGrd.addColorStop(1.0,"#f00");
+			//添加另一个Canvas画布
+			var backCanvas = createBackgroundCanvas();
+			var pattern = context.createPattern(backCanvas,"repeat");
+			context.fillStyle = pattern;
+			context.fillRect(0,0,800,800);
+			 
+			 
 
-		context.fillStyle = linearGrd;
-		context.fillRect(0,0,800,800);
+			}
+			function createBackgroundCanvas(){
+				//document.createElement('canvas')这块是创造
+				var backCanvas = document.createElement('canvas');
+				backCanvas.width = 100;
+				backCanvas.height = 100;
+				var backCanvasContext = backCanvas.getContext('2d');
+				drawStar(backCanvasContext,50,50,50,0);
+				return backCanvas;
+			}
+			function drawStar(cxt,x,y,R,rot) {
+				cxt.save();
 
+				cxt.translate(x,y);
+				cxt.rotate(rot/180*Math.PI);
+				cxt.scale(R,R);
 
-	}
-</script>
-</body>
-</html>
+				starPath(cxt);
+
+				cxt.fillStyle="#fb3";
+				cxt.fill();
+
+				cxt.restore();
+			}
+
+			function starPath(cxt){
+				cxt.beginPath();
+				for(var i=0; i<5; i++){
+					cxt.lineTo(Math.cos((18+i*72)/180*Math.PI),
+						-Math.sin((18+i*72)/180*Math.PI));
+					cxt.lineTo(Math.cos((54+i*72)/180*Math.PI)*0.5,
+						-Math.sin((54+i*72)/180*Math.PI)*0.5);
+				}
+				cxt.closePath();
+			}
+		</script>
+	</body>
+	</html>

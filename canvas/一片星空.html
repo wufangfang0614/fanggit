@@ -5,36 +5,56 @@
 	<title></title>
 </head>
 <body>
-<canvas id="canvas" style="border:1px solid #aaa;display:block;margin:50px auto;">
-	当前浏览器不支持canvas时，请更换浏览器
-</canvas>
+	<canvas id="canvas" style="border:1px solid #aaa;display:block;margin:50px auto;">
+		当前浏览器不支持canvas时，请更换浏览器
+	</canvas>
 
-<script type="text/javascript">
-	window.onload=function(){
-		var canvas = document.getElementById('canvas');
-		canvas.width = 1200;
-		canvas.height = 800;
-		var context = canvas.getContext('2d');
+	<script type="text/javascript">
+		window.onload=function(){
+			var canvas = document.getElementById('canvas');
+			canvas.width = 1200;
+			canvas.height = 800;
+			var context = canvas.getContext('2d');
 
-		var radialGrd = context.createRadialGradient(canvas.width/2,canvas.height,0,canvas.width/2,canvas.height,canvas.height);
-		radialGrd.addColorStop(0.0,"#035");
-		radialGrd.addColorStop(1.0,"black");
+			var radialGrd = context.createRadialGradient(canvas.width/2,canvas.height,0,canvas.width/2,canvas.height,canvas.height);
+			radialGrd.addColorStop(0.0,"#035");
+			radialGrd.addColorStop(1.0,"black");
 
-		context.fillStyle = radialGrd;
-		context.fillRect( 0 , 0 , canvas.width , canvas.height );
-		context.fillStyle = "yellow";
-		context.lineJoin = "round";
-		for( var i = 0 ; i < 200 ; i++){
-			var r = Math.random() * 5 + 5;
+			context.fillStyle = radialGrd;
+			context.fillRect( 0 , 0 , canvas.width , canvas.height );
+			context.fillStyle = "yellow";
+			context.lineJoin = "round";
+			for( var i = 0 ; i < 200 ; i++){
+				var r = Math.random() * 5 + 5;
 			//不超过边界，为啥这么写。
 			var x = Math.abs(Math.random() * canvas.width - 2*r) + r;
 			var y = Math.abs(Math.random() * canvas.height - 2*r)*0.65 + r;
 			var a = Math.random() * 360;
 			drawStar( context , r/2.0 , r , x ,y , a );
+
+			fillMoon(context , 2 , 900 , 200 , 100 ,30 );
+			drawland(context);
 		}
 		
 	}
+	function drawland(cxt){
+		cxt.save();
 
+		cxt.beginPath();
+		cxt.moveTo(0,600);
+		cxt.bezierCurveTo(540 , 400 , 660 , 800 , 1200 ,600);
+		cxt.lineTo(1200 , 800);
+		cxt.lineTo( 0 , 800 );
+		cxt.closePath();
+
+		var landStyle = cxt.createLinearGradient(0, 800 , 0 ,0);
+		landStyle.addColorStop(0.0 , "#030");
+		landStyle.addColorStop(1.0 , "#580");
+		cxt.fillStyle = landStyle;
+		cxt.fill();
+
+		cxt.restore();
+	}
 	function drawStar( cxt , r , R , x , y , rot){
 		cxt.beginPath();
 		for( var i = 0 ; i < 5 ; i ++){
@@ -45,8 +65,28 @@
 
 		cxt.fill();
 	}
-
-</script>
+	function fillMoon( cxt , d , x , y , R , rot ,/*optional*/fillColor){
+		cxt.save();
+		cxt.translate( x , y );
+		cxt.rotate( rot * Math.PI / 180);
+		cxt.scale( R , R );
+		pathMoon( cxt , d);
+		cxt.fillStyle = fillColor||"#fb5";
+		cxt.fill();
+		cxt.restore();
+	}
+	function pathMoon( cxt , d ){
+		cxt.beginPath();
+		cxt.arc( 0 , 0 , 1 ,0.5*Math.PI ,1.5*Math.PI ,true);
+		cxt.moveTo( 0 , -1 );
+			//ah为1
+			cxt.arcTo(d , 0 , 0 , 1 ,dis(0 , -1 , d ,0)/d);
+			cxt.closePath();
+		}
+		function dis( x1 , y1 , x2 , y2){
+			return Math.sqrt( (x1-x2)*(x1-x2) +(y1-y2)*(y1-y2));
+		}Z
+	</script>
 
 </body>
 </html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<canvas id="canvas" width="800" height="800" style="display:block;border:1px solid #aaa;margin:50px auto;">
+		如果浏览器不能正常显示，请更换支持canvas的浏览器
+	</canvas>
+	<script type="text/javascript">
+		window.onload=function(){
+			var canvas = document.getElementById('canvas');
+			var context = canvas.getContext('2d');
+
+			drawRoundRect( context , 100 , 100 , 600 , 500 , 50);
+
+		}
+
+		function drawRoundRect(cxt, x, y, width, height, radius) {
+            cxt.save();
+            cxt.translate(x, y);
+            pathRoundRect(cxt, width, height, radius);
+            cxt.strokeStyle = "black";
+            cxt.stroke();
+            cxt.restore();
+        }
+		function pathRoundRect(cxt , width , height , radius){
+			//绘制方向：右下角->左下角->左上角->closePath()
+			cxt.beginPath();
+			cxt.arc(width - radius , height - radius , radius ,0 , Math.PI / 2 );
+			//cxt.lineTo( radius , height);
+			cxt.arc( radius , height - radius , radius ,Math.PI/ 2 , Math.PI);
+			//cxt.lineTo( 0 ,radius);
+			cxt.arc( radius , radius , radius , Math.PI , Math.PI * 3 /2);
+			//cxt.lineTo( width -radius , 0 );
+			cxt.arc( width -radius , radius , radius ,Math.PI * 3 / 2 , Math.PI * 2);
+			cxt.closePath();
+		}
+	</script>
+</body>
+</html>

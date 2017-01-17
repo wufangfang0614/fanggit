@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<canvas id="canvas" width="800" height="800" style="display:block;border:1px solid #aaa;margin:50px auto;">
+		如果浏览器不能正常显示，请更换支持canvas的浏览器
+	</canvas>
+	<script type="text/javascript">
+		window.onload=function(){
+			var canvas = document.getElementById('canvas');
+			var context = canvas.getContext('2d');
+
+			arcToTest( context , 150 , 100 , 550 , 200 , 650 , 600 , 300);
+			
+
+		}
+		function arcToTest( cxt , x0 ,y0 , x1 , y1 ,x2 ,y2 , R){
+			cxt.beginPath();
+			cxt.moveTo( x0 , y0 );
+			cxt.arcTo( x1 , y1 , x2 , y2 ,R);
+
+			cxt.lineWidth  = 6 ;
+			cxt.strokeStyle = "red";
+			cxt.stroke();
+
+			cxt.beginPath();
+			cxt.moveTo( x0 , y0);
+			cxt.lineTo( x1 , y1);
+			cxt.lineTo( x2 , y2);
+
+			cxt.lineWidth = 2;
+			cxt.strokeStyle = "gray";
+			cxt.stroke();
+		}
+		
+	</script>
+</body>
+</html>
