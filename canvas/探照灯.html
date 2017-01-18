@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<canvas id="canvas" style="border:1px solid #aaa;display:block;margin:50px auto;">
+		当前浏览器不支持canvas时，请更换浏览器
+	</canvas>
+
+	<script type="text/javascript">
+		var searchLight = {x:400 , y:400 , radius:150 ,vx:Math.random()*5+10,vy:Math.random()*5+10};
+		var rot = 0;
+		var isIncrease;
+		window.onload=function(){
+			var canvas = document.getElementById('canvas');
+			canvas.width = 800;
+			canvas.height = 800;
+			var context = canvas.getContext('2d');
+
+			setInterval(
+				function(){
+					draw( context );
+					update( canvas.width , canvas.height);
+				},
+				40
+				)	
+		}
+
+		function draw( cxt ){
+			var canvas = cxt.canvas;
+			cxt.clearRect( 0 , 0 , canvas.width , canvas.height);
+
+			cxt.save();
+			cxt.beginPath();
+			cxt.fillStyle = "black";
+			cxt.fillRect( 0 , 0 , canvas.width , canvas.height);
+			//圆形探照灯
+			/*cxt.beginPath();
+			cxt.arc( searchLight.x , searchLight.y , searchLight.radius , 0 , Math.PI*2);
+			cxt.fillStyle = "#fff";
+			cxt.fill();
+			cxt.clip();*/
+
+			//五角星探照灯
+			cxt.save();
+			cxt.translate(searchLight.x,searchLight.y);
+			cxt.rotate(rot /180 *Math.PI );
+			cxt.scale(searchLight.radius,searchLight.radius);
+			drawStar(cxt);
+			cxt.fillStyle="#fff";
+			cxt.fill();
+			cxt.restore();
+			cxt.clip();
+
+			cxt.fillStyle = "#058";
+			cxt.font = "bold 150px Arial";
+			cxt.textAlign = "center";
+			cxt.textBaseline = "middle";
+
+			cxt.shadowColor = "gray";
+			cxt.shadowOffsetX = 10;
+			cxt.shadowOffsetY = 10;
+			cxt.shadowBlur = 5;
+
+			cxt.fillText("CANVAS", canvas.width/2 , canvas.height/4);
+			cxt.fillText("CANVAS", canvas.width/2 , canvas.height/2);
+			cxt.fillText("CANVAS", canvas.width/2 , canvas.height*3/4);
+
+			cxt.restore();
+		}
+
+		function update(canvasWidth , canvasHeight){
+			//随机移动
+			/*rot += 1;
+
+			searchLight.x += searchLight.vx;
+			searchLight.y += searchLight.vy;
+
+			if (searchLight.x - searchLight.radius <= 0) {
+				searchLight.vx = -searchLight.vx;
+				searchLight.x = searchLight.radius;
+			}
+			if (searchLight.x + searchLight.radius >= canvasWidth ) {
+				searchLight.vx = -searchLight.vx;
+				searchLight.x = canvasWidth - searchLight.radius;
+			}
+			if (searchLight.y - searchLight.radius <= 0) {
+				searchLight.vy = -searchLight.vy;
+				searchLight.y = searchLight.radius;
+			}
+			if (searchLight.y + searchLight.radius >= canvasHeight ) {
+				searchLight.vy = -searchLight.vy;
+				searchLight.y = canvasHeight - searchLight.radius;
+			}*/
+			
+			//星星缩放
+			if ( searchLight.radius > 700) 
+				isIncrease = false;
+			else if(searchLight.radius < 150)
+				isIncrease = true;
+
+			if (isIncrease) {
+				searchLight.radius += 5;
+			}else{
+				searchLight.radius -= 5;
+			}
+
+		}
+
+		function drawStar(cxt) {
+			cxt.beginPath();
+			for( var i = 0 ; i < 5 ; i ++){
+			cxt.lineTo(Math.cos((18+72*i)/180*Math.PI),- Math.sin((18+72*i )/180*Math.PI));
+			cxt.lineTo(Math.cos((54+72*i)/180*Math.PI)*0.5,- Math.sin((54+72*i )/180*Math.PI)*0.5);
+		}
+			cxt.closePath();
+		}   
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<canvas id="canvas" style="border:1px solid #aaa;display:block;margin:50px auto;">
+		当前浏览器不支持canvas时，请更换浏览器
+	</canvas>
+
+	<script type="text/javascript">
+		window.onload=function(){
+			var canvas = document.getElementById('canvas');
+			canvas.width = 800;
+			canvas.height = 800;
+			var context = canvas.getContext('2d');
+			context.fillStyle = "#058";
+			context.font = "bold 120px Arial";
+			context.textAlign = "center";
+			context.textBaseline = "middle";
+
+			context.shadowColor = "gray";
+            context.shadowOffsetX = 10;
+            context.shadowOffsetY = 10;
+            context.shadowBlur = 5;
+
+			context.fillText("CANVAS", canvas.width/2 , canvas.height/2);
+		}
+	</script>
+
+</body>
+</html>
