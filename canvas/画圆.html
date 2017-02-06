@@ -4,7 +4,7 @@
 	<title>画圆</title>
 </head>
 <body>
-<canvas id="canvas" width="1080" height="768" style="border: 1px solid #aaa;margin: 50px auto;">
+<canvas id="canvas" width="1080" height="768" style="border: 1px solid #aaa;margin: 50px auto;display: block;">
 	当前浏览器不支持canvas，请更换浏览器后再试
 </canvas>
 <script type="text/javascript">
@@ -26,7 +26,7 @@
 		//首尾相连
 		for(var i = 0 ; i < 10 ; i++){
 			context.beginPath();
-			context.arc(10+i*100,60,40,0,2*Math.PI*(i+1)/10);
+			context.arc(100+i*100,60,40,0,2*Math.PI*(i+1)/10);
 			context.closePath();
 
 			context.stroke();
@@ -34,14 +34,14 @@
 		//首尾不相连 closepath封闭路径
 		for(var i = 0 ; i < 10 ; i++){
 			context.beginPath();
-			context.arc(10+i*100,180,40,0,2*Math.PI*(i+1)/10);
+			context.arc(100+i*100,180,40,0,2*Math.PI*(i+1)/10);
 
 			context.stroke();
 		}
 		//首尾相连 逆时针
 		for(var i = 0 ; i < 10 ; i++){
 			context.beginPath();
-			context.arc(10+i*100,300,40,0,2*Math.PI*(i+1)/10,true);
+			context.arc(100+i*100,300,40,0,2*Math.PI*(i+1)/10,true);
 			context.closePath();
 
 			context.stroke();
@@ -49,7 +49,7 @@
 		//首尾不相连 逆时针
 		for(var i = 0 ; i < 10 ; i++){
 			context.beginPath();
-			context.arc(10+i*100,420,40,0,2*Math.PI*(i+1)/10,true);
+			context.arc(100+i*100,420,40,0,2*Math.PI*(i+1)/10,true);
 
 			context.stroke();
 		}
@@ -57,7 +57,7 @@
 		//首尾相连 顺时针 有closePath填充
 		for(var i = 0 ; i < 10 ; i++){
 			context.beginPath();
-			context.arc(10+i*100,540,40,0,2*Math.PI*(i+1)/10);
+			context.arc(100+i*100,540,40,0,2*Math.PI*(i+1)/10);
 			context.closePath();
 
 			context.fill();
@@ -65,7 +65,7 @@
 		//首尾相连 顺时针 无closePath填充 fill有无closePath都行
 		for(var i = 0 ; i < 10 ; i++){
 			context.beginPath();
-			context.arc(10+i*100,660,40,0,2*Math.PI*(i+1)/10);
+			context.arc(100+i*100,660,40,0,2*Math.PI*(i+1)/10);
 
 			context.fill();
 		}
